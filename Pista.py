@@ -28,7 +28,6 @@ class Pista():
         visitados = []
         visitados.append(self.start) # adicionamos o estado inicial ao estados visitados
 
-
         while estados != []:
             estado = estados.pop()
             expansao = self.expande(estado)

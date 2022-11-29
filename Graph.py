@@ -130,7 +130,7 @@ class Grafo:
             # calcular o custo do caminho funçao calcula custo.
             custoT = self.calcula_custo(path)
             return (path, custoT)
-        for (adjacente, peso) in self.m_graph[start]:
+        for (adjacente, peso) in self.m_graph.keys():
             print(adjacente)
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)

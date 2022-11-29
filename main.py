@@ -27,7 +27,7 @@ def retorna_coords_posicao(matrix,posicao):
             resultado = [(cordx,cordy) for cordx, row in enumerate(matrix) for cordy, i in enumerate(row) if i == 'F']
             return resultado
         else :
-            return null
+            return None
 
 
 
@@ -63,7 +63,7 @@ def main():
             print(retorna_coords_posicao(matrix,'P'))
             x = retorna_coords_posicao(matrix,'P')
             print(verifica_parede((1,0),matrix))
-            print(eesquerda((1,0)))
+            print(esequerda((1,0)))
             l=input("prima enter para continuar")
         elif var == 4:
             matrix = converte_matrix()
@@ -95,4 +95,4 @@ def main():
     
 
 if __name__ == "__main__":
-    main()
+        main()

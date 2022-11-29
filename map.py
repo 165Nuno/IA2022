@@ -29,7 +29,7 @@ def meio(largura,altura):
 def printmetaplayer(pl,largura):
     hm = largura
     string = ""
-    x = random.randint(1,hm)
+    x = random.randint(2,hm-2)
     while(hm > 0):
         if (x == hm and pl == 2): 
             string += "F"
