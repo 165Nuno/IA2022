@@ -42,7 +42,7 @@ def main():
     while var != 0:
         print("1-Gera Circuito")
         print("2-Gera Matriz correspondente ao Circuito escolhido")
-        print("3-Coords do P")
+        print("3- Mostrar Mapa Guardado")
         print("4-BFS")
         print("5-DFS")
         print("0-Saír")
@@ -59,25 +59,9 @@ def main():
             print(converte_matrix())
             l=input("prima enter para continuar")
         elif var == 3:
-            matrix = converte_matrix()
-            print(retorna_coords_posicao(matrix,'P'))
-            x = retorna_coords_posicao(matrix,'P')
-            print(verifica_parede((1,0),matrix))
-            print(eesquerda((1,0)))
+            print_matrix()
             l=input("prima enter para continuar")
         elif var == 4:
-            matrix = converte_matrix()
-            startT = retorna_coords_posicao(matrix,'P')
-            start = startT[0]
-            resS = "(" + str(start[0]) + "," + str(start[1]) + ")"
-            goalL = retorna_coords_posicao(matrix,'F')
-            goal = goalL[0]
-            resG = "(" + str(goal[0]) + "," + str(goal[1]) + ")"
-            problema = Pista(resS,resG,matrix)
-            problema.cria_grafo()
-            caminho=problema.solucaoDFS(start[0],goal[0])
-            print(caminho)
-            print("ola")
             #print(expande((5,5),matrix))
             l=input("prima enter para continuar")
         elif var == 5:
@@ -86,9 +70,10 @@ def main():
             goal = retorna_coords_posicao(matrix,'F')
             problema = Pista(start[0],goal[0],matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
-            caminho=problema.solucaoDFS(start[0], goal[0])
-            # caminho=problema.solucaoBFS(start[0],goal[0])
-            print(problema)
+            #caminho=problema.solucaoDFS(start[0], goal[0])
+            caminho=problema.solucaoBFS(start[0],goal[0])
+            #print(problema)
+            problema.imprimecenas()
             l=input("prima enter para continuar")
 
             
