@@ -40,18 +40,20 @@ class Pista():
                     visitados.append(e)
 
 
+
+# Serve para ter um estados possiveis seguintes
     def expande(self,estado):
         lista = []
         cordx = estado[0]
         cordy = estado[1]
 
-        if self.matrix[cordx+1][cordy] != '#' and cordx+1 >= self.linha :
+        if self.matrix[cordx+1][cordy] != '#' and cordx+1 < self.linha :
             res = (cordx+1,cordy)
             lista.append(res)
         if self.matrix[cordx-1][cordy] != '#' and cordx-1 >= 0:
             res = (cordx-1,cordy)
             lista.append(res)
-        if self.matrix[cordx][cordy+1] != '#'and cordy+1 >= self.coluna:
+        if self.matrix[cordx][cordy+1] != '#'and cordy+1 < self.coluna:
             res = (cordx,cordy+1) 
             lista.append(res)
         if self.matrix[cordx][cordy-1] != '#' and cordy-1 >= 0:
@@ -65,6 +67,10 @@ class Pista():
     def solucaoDFS(self,start,goal):
         res=self.g.procura_DFS(start,goal,path=[], visited=set())
         return (res)
+
+    def imprimecenas(self):
+        return self.g.imprime_aresta()
+
 # Função que verifica se estamos numa parede FIX ME
     def parede_verifica(self,matrix,estado):
         x = estado[0]
@@ -102,24 +108,3 @@ class Pista():
             return 1
         else:
             return 0
-
-    def edireita(self,estado):
-        cordx = estado[0]
-        cordy = estado[1]
-        return (cordx+1,cordy)
-
-    def eesquerda(self,estado):
-        cordx = estado[0]
-        cordy = estado[1]
-        return (cordx-1,cordy)
-
-    def ecima(self,estado):
-        cordx = estado[0]
-        cordy = estado[1]
-        return (cordx,cordy+1)
-
-    def ebaixo(self,estado):
-        cordx = estado[0]
-        cordy = estado[1]
-        return (cordx,cordy-1)
-# Cria o grafo

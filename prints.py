@@ -33,5 +33,5 @@ def printar_file(linha):
 
 # Função que printa o mapa para o terminal -> nao esta a ser usada
 def print_matrix():
-    file = open('text2.txt') 
+    file = open('mapa.txt') 
     print(file.read())
