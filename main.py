@@ -1,4 +1,5 @@
 
+import numpy as np
 
 # Função que devolve um array de tuplo com as posições daquilo que pretendemos
 def retorna_coords_posicao(matrix,posicao):
@@ -20,11 +21,25 @@ def print_matrix():
 
 # Função que transforma o circuito em uma matrix
 def converte_matrix():
-    fin = open('text.txt','r')
+    fin = open('mapa.txt','r')
     matrix=[]
     for line in fin.readlines():
         matrix.append( [ str(x) for x in line.split() ] )
     return matrix
+
+def teste (xd):
+    str = ""
+    for e in xd:
+      x1 = str(e[0])
+      x2 = str(e[1])
+      str = "(" + x1 + "," + x2 + ")"
+    return str
+    
+
+def converter(xd):
+    delimitador = ","
+    res = delimitador.join([str(value) for value in xd])
+    return xd
 
 # Função que verifica se um dado carro está fora da pista
 # Caso esteja fora retorna 1 caso contrário retorna 0
@@ -73,9 +88,9 @@ def main():
     m = converte_matrix()
     xd = retorna_coords_posicao(m,'P')
     print(xd)
-    p = retorna_coords_posicao(m,'F')
-    print(p)
-
+    ola = converter(xd)
+    ola2 = teste(xd)
+    print(ola2)
 
 if __name__ == "__main__":
     main()
