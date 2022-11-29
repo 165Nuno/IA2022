@@ -3,8 +3,8 @@
 # cada nodo tem um nome e um id, poderia ter também informação sobre um ob jeto a guardar.....
 class Node:
     def __init__(self,p_linha,p_coluna):     #  construtor do nodo....."
-        self.p_linha = int(p_linha)# posição linha
-        self.p_coluna = int(p_coluna)# posicção coluna
+        self.p_linha = p_linha# posição linha
+        self.p_coluna = p_coluna# posicção coluna
         #self.ac_linha; # acelaração linha
         #self.ac_coluna; # acelaração coluna
 

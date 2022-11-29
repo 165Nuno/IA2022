@@ -56,19 +56,19 @@ class Grafo:
     #############################
 
     def add_edge(self, node1, node2, weight):
-        n1 = Node(node1[1],node1[3])
-        n2 = Node(node2[1],node2[3])
+        n1 = Node(node1[0],node1[1])
+        n2 = Node(node2[0],node2[1])
         if (n1 not in self.m_nodes):
             self.m_nodes.append(n1)
             self.m_graph[node1] = list()
-        else:
-            n1 = self.get_node_by_name(node1)
+        #else:
+            #n1 = self.get_node_by_name(node1)
 
         if (n2 not in self.m_nodes):
             self.m_nodes.append(n2)
             self.m_graph[node2] = list()
-        else:
-            n2 = self.get_node_by_name(node2)
+        #else:
+            #n2 = self.get_node_by_name(node2)
 
         self.m_graph[node1].append((node2, weight))
 
@@ -119,12 +119,19 @@ class Grafo:
     def procura_DFS(self, start, end, path=[], visited=set()):
         path.append(start)
         visited.add(start)
+        
+        print("==============")
+        print(start)
+        print(end)
+        print("============")
 
+        #print(self.m_graph[(start)])
         if start == end:
             # calcular o custo do caminho funçao calcula custo.
             custoT = self.calcula_custo(path)
             return (path, custoT)
         for (adjacente, peso) in self.m_graph[start]:
+            print(adjacente)
             if adjacente not in visited:
                 resultado = self.procura_DFS(adjacente, end, path, visited)
                 if resultado is not None:

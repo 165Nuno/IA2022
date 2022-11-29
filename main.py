@@ -1,25 +1,14 @@
-
+import random
+import sys
 import numpy as np
+from prints import *
+from map import *
+from Graph import *
+from Node import *
+from Pista import *
 
-# Função que devolve um array de tuplo com as posições daquilo que pretendemos
-def retorna_coords_posicao(matrix,posicao):
-    #a = np.array(matrix)
-    #print(np.where(a=='P'))
-    if (posicao == 'P'):
-        resultado = [(cordx,cordy) for cordx, row in enumerate(matrix) for cordy, i in enumerate(row) if i == 'P']
-        return resultado
-    elif (posicao == 'F'):
-        resultado = [(cordx,cordy) for cordx, row in enumerate(matrix) for cordy, i in enumerate(row) if i == 'F']
-        return resultado
-    else :
-        return null
-    
-# Função que printa o mapa
-def print_matrix():
-    file = open('text.txt') 
-    print(file.read())
 
-# Função que transforma o circuito em uma matrix
+# Função que transforma o circuito em um grafo
 def converte_matrix():
     fin = open('mapa.txt','r')
     matrix=[]
@@ -27,70 +16,83 @@ def converte_matrix():
         matrix.append( [ str(x) for x in line.split() ] )
     return matrix
 
-def teste (xd):
-    str = ""
-    for e in xd:
-      x1 = str(e[0])
-      x2 = str(e[1])
-      str = "(" + x1 + "," + x2 + ")"
-    return str
-    
 
-def converter(xd):
-    delimitador = ","
-    res = delimitador.join([str(value) for value in xd])
-    return xd
-
-# Função que verifica se um dado carro está fora da pista
-# Caso esteja fora retorna 1 caso contrário retorna 0
-def verifica_forapista(estado,matrix):
-    contlin = 0
-    contcol = 0
-    px = int(estado[1])
-    py = int(estado[3])
-
-    for i in range(len(matrix)):
-        contlin = contlin + 1
-
-    for j in range(i):
-        contcol = contcol + 1  
-
-    if px > contlin or px < 0 or py > contcol or py < 0:
-        return 1
-    else:
-        return 0
-
-# Cria o grafo
-def cria_grafo(self):
-        estados = []
-        estados.append(self.start) # adicionado o estado inicial
-        visitados = []
-        visitados.append(self.start) # adicionamos o estado inicial ao estados visitados
-
-
-        while estados != []:
-            estado = estados.pop()
-            expansao = self.expande(estado)
-            for e in expansao:
-                if verifica_forapista(e) == 1:
-                    self.g.add_edge(estado,e,25) ## Caso em que ele sai fora da pista fica com um custo de 25
-                else:
-                    self.g.add_edge(estado,e,1)
-                if e not in visitados:
-                    estados.append(e)
-                    visitados.append(e)
+def retorna_coords_posicao(matrix,posicao):
+    #a = np.array(matrix)
+    #print(np.where(a=='P'))
+        if (posicao == 'P'):
+            resultado = [(cordx,cordy) for cordx, row in enumerate(matrix) for cordy, i in enumerate(row) if i == 'P']
+            return resultado
+        elif (posicao == 'F'):
+            resultado = [(cordx,cordy) for cordx, row in enumerate(matrix) for cordy, i in enumerate(row) if i == 'F']
+            return resultado
+        else :
+            return null
 
 
 
 
 def main():
-    print_matrix()
-    m = converte_matrix()
-    xd = retorna_coords_posicao(m,'P')
-    print(xd)
-    ola = converter(xd)
-    ola2 = teste(xd)
-    print(ola2)
+    var = -1
+    est = (39,3)
+
+    #xd = retorna_coords_posicao(matrix,'P')
+    # print(verifica_forapista(xd[0],matrix))
+    menu()
+    while var != 0:
+        print("1-Gera Circuito")
+        print("2-Gera Matriz correspondente ao Circuito escolhido")
+        print("3-Coords do P")
+        print("4-BFS")
+        print("5-DFS")
+        print("0-Saír")
+        var = int(input("introduza a sua opcao-> "))
+        if var == 0:
+            print("Saindo.......")
+        elif var == 1:
+            largura = int(input("ESCOLHA A SUA LARGURA -> "))
+            altura = int(input("ESCOLHA A SUA ALTURA-> "))
+            open('mapa.txt', 'w').close()
+            gera_mapa(largura,altura)
+            l=input("prima enter para continuar")
+        elif var == 2:
+            print(converte_matrix())
+            l=input("prima enter para continuar")
+        elif var == 3:
+            matrix = converte_matrix()
+            print(retorna_coords_posicao(matrix,'P'))
+            x = retorna_coords_posicao(matrix,'P')
+            print(verifica_parede((1,0),matrix))
+            print(eesquerda((1,0)))
+            l=input("prima enter para continuar")
+        elif var == 4:
+            matrix = converte_matrix()
+            startT = retorna_coords_posicao(matrix,'P')
+            start = startT[0]
+            resS = "(" + str(start[0]) + "," + str(start[1]) + ")"
+            goalL = retorna_coords_posicao(matrix,'F')
+            goal = goalL[0]
+            resG = "(" + str(goal[0]) + "," + str(goal[1]) + ")"
+            problema = Pista(resS,resG,matrix)
+            problema.cria_grafo()
+            caminho=problema.solucaoDFS(start[0],goal[0])
+            print(caminho)
+            print("ola")
+            #print(expande((5,5),matrix))
+            l=input("prima enter para continuar")
+        elif var == 5:
+            matrix = converte_matrix()
+            start = retorna_coords_posicao(matrix,'P')
+            goal = retorna_coords_posicao(matrix,'F')
+            problema = Pista(start[0],goal[0],matrix,len(matrix),len(matrix[0]))
+            problema.cria_grafo()
+            caminho=problema.solucaoDFS(start[0], goal[0])
+            # caminho=problema.solucaoBFS(start[0],goal[0])
+            print(problema)
+            l=input("prima enter para continuar")
+
+            
+    
 
 if __name__ == "__main__":
     main()

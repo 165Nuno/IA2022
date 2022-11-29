@@ -11,17 +11,18 @@ class Pista():
     # os estados são representados por "(x,y)" como string, em que x e y representam
     # as quantidades de agua nos jarros
 
-    def __init__(self, start, goal,matrix):
+    def __init__(self, start, goal,matrix,linha,coluna):
         self.g=Grafo(directed=True)
         self.start=start
         self.goal=goal
         self.matrix = matrix
+        self.linha = linha
+        self.coluna = coluna
 
 
 
 
     def cria_grafo(self):
-        print("OLA")
         estados = []
         estados.append(self.start) # adicionado o estado inicial
         visitados = []
@@ -29,18 +30,11 @@ class Pista():
 
 
         while estados != []:
-            print("OLA 2")
             estado = estados.pop()
-            print("OLA 3")
-            print(self.start)
-            print(estado)
-            print(estado[1])
             expansao = self.expande(estado)
-            print("OlA 4")
             for e in expansao:
                # if verifica_fora_pista(e) == 1:
                 #    self.g.add_edge(estado,e,25) ## Caso em que ele sai fora da pista fica com um custo de 25
-                print(e)
                 self.g.add_edge(estado,e,1)
                 if e not in visitados:
                     estados.append(e)
@@ -49,24 +43,29 @@ class Pista():
 
     def expande(self,estado):
         lista = []
-        cordx = int(estado[1])
-        cordy = int(estado[3])
+        cordx = estado[0]
+        cordy = estado[1]
 
-        if self.matrix[cordx+1][cordy] != '#':
-            res = "(" + str(cordx+1) + "," + str(cordy) + ")"
+        if self.matrix[cordx+1][cordy] != '#' and cordx+1 >= self.linha :
+            res = (cordx+1,cordy)
             lista.append(res)
-        if self.matrix[cordx-1][cordy] != '#':
-            res = "(" + str(cordx-1) + "," + str(cordy) + ")"
+        if self.matrix[cordx-1][cordy] != '#' and cordx-1 >= 0:
+            res = (cordx-1,cordy)
             lista.append(res)
-        if self.matrix[cordx][cordy+1] != '#':
-            res = "(" + str(cordx) + "," + str(cordy+1) + ")"    
+        if self.matrix[cordx][cordy+1] != '#'and cordy+1 >= self.coluna:
+            res = (cordx,cordy+1) 
             lista.append(res)
-        if self.matrix[cordx][cordy-1] != '#':
-            res = "(" + str(cordx) + "," + str(cordy-1) + ")"
+        if self.matrix[cordx][cordy-1] != '#' and cordy-1 >= 0:
+            res = (cordx,cordy+1)
             lista.append(res)
         return lista
 
+    def solucaoBFS(self,start,goal):
+        return self.g.procura_BFS(start,goal)
 
+    def solucaoDFS(self,start,goal):
+        res=self.g.procura_DFS(start,goal,path=[], visited=set())
+        return (res)
 # Função que verifica se estamos numa parede FIX ME
     def parede_verifica(self,matrix,estado):
         x = estado[0]

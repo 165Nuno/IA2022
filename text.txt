@@ -1,6 +1,6 @@
 X X X X X X X X X X
-X X - - - X X - - X
-X - P - - - - - - F
+X X - - - X X P - X
+X - - - - - - - - F
 X - - - X X X - - F
 X - - - - - - - - F
 X X X X - - - - X X
