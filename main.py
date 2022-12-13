@@ -1,5 +1,7 @@
 import random
 import sys
+import os
+import time
 import numpy as np
 from prints import *
 from map import *
@@ -80,9 +82,14 @@ def main():
             problema = Pista(tuploP,tuploF,matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
             caminho = problema.solucaoDFS(str(tuploP), str(tuploF))
-            print("======> Caminho que resultou da aplicação do Algoritmo DFS")
+            print(" ")
+            print("==========> [Caminho que resultou da aplicação do Algoritmo DFS]")
             print(" ")
             print(caminho)
+            print(" ")
+            print("Tracking do caminho iniciando em breve....")
+
+            time.sleep(4)
 
             for c in caminho[0]:
                 x = c[1:-1].split(',')
@@ -90,22 +97,24 @@ def main():
                 x2 = int(x[1])
                 #print(matrix_alteracao)
                 matrix_alteracao[x1][x2] = 'C'
-            z = 0
-            k = 0
-            #print(matrix_alteracao[1][1])
-            print("======> Representação visual do caminho obtido")
-            print(" ")
-            while (z < len(matrix_alteracao)):
-                strr = ""
-                while (k < len(matrix_alteracao[z])):
-                
-                    strr += matrix_alteracao[z][k]
-                    strr += " "
-                    k = k+1
-                
+                z = 0
                 k = 0
-                print(strr)
-                z += 1
+            #print(matrix_alteracao[1][1])
+            #print("======> Representação visual do caminho obtido")
+            #print(" ")
+                while (z < len(matrix_alteracao)):
+                    strr = ""
+                    while (k < len(matrix_alteracao[z])):
+                
+                        strr += matrix_alteracao[z][k]
+                        strr += " "
+                        k = k+1
+                
+                    k = 0
+                    print(strr)
+                    z += 1
+                time.sleep(0.5)
+                os.system('clear')
             l=input("prima enter para continuar")
         elif var == 6:
             matrix = converte_matrix()
@@ -119,9 +128,14 @@ def main():
             problema = Pista(tuploP,tuploF,matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
             caminho=problema.solucaoBFS(str(tuploP),str(tuploF))
-            print("======> Caminho que resultou da aplicação do Algoritmo BFS")
+            print(" ")
+            print("==========> [Caminho que resultou da aplicação do Algoritmo BFS]")
             print(" ")
             print(caminho)
+            print(" ")
+            print("Tracking do caminho iniciando em breve....")
+
+            time.sleep(4)
 
             for c in caminho[0]:
                 x = c[1:-1].split(',')
@@ -129,22 +143,24 @@ def main():
                 x2 = int(x[1])
                 #print(matrix_alteracao)
                 matrix_alteracao[x1][x2] = 'C'
-            z = 0
-            k = 0
-            #print(matrix_alteracao[1][1])
-            print("======> Representação visual do caminho obtido")
-            print(" ")
-            while (z < len(matrix_alteracao)):
-                strr = ""
-                while (k < len(matrix_alteracao[z])):
-                
-                    strr += matrix_alteracao[z][k]
-                    strr += " "
-                    k = k+1
-                
+                z = 0
                 k = 0
-                print(strr)
-                z += 1
+            #print(matrix_alteracao[1][1])
+            #print("======> Representação visual do caminho obtido")
+            #print(" ")
+                while (z < len(matrix_alteracao)):
+                    strr = ""
+                    while (k < len(matrix_alteracao[z])):
+                
+                        strr += matrix_alteracao[z][k]
+                        strr += " "
+                        k = k+1
+                
+                    k = 0
+                    print(strr)
+                    z += 1
+                time.sleep(0.5)
+                os.system('clear')
                 
             l=input("prima enter para continuar")
 

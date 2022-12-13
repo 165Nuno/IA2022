@@ -11,7 +11,7 @@ def randomNumb(largura):
         if (hm == largura or hm == 1):
             string += "#"
             string += " "
-        elif ((random.randint(1,100)) < 23):
+        elif ((random.randint(1,100)) < 35):
             string += "#"
             string += " "
         else:
