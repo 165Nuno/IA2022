@@ -27,6 +27,7 @@ def meio(largura,altura):
     while(hm > 0):
         randomNumb(largura)
         hm = hm - 1
+        
 
 
 
@@ -36,7 +37,7 @@ def printPlayer(largura):
     i = 0
     while(i < largura):
         if (x == i): 
-            string += "P"
+            string += "P" # aqui é P
             string += " "
             break
         else: 
