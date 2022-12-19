@@ -65,13 +65,13 @@ def main():
             matrix = converte_matrix()
             start = retorna_coords_posicao(matrix,'P')
             startP = start[0]
-            tuploP = (int(startP[0]),int(startP[1]))
+            tuploP = (int(startP[0]),int(startP[1]), 0, 0)
             goal = retorna_coords_posicao(matrix,'F')
             goalF = goal[0]
             tuploF = (int(goalF[0]),int(goalF[1]))
             jogadorj= retorna_coords_posicao(matrix,'J')
             jogadorJ = jogadorj[0]
-            tuploJ = (int(jogadorJ[0]),int(jogadorJ[1]))
+            tuploJ = (int(jogadorJ[0]),int(jogadorJ[1]), 0, 0)
             problema = Pista(tuploP,tuploF,matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
             problemaJ = Pista(tuploJ,tuploF,matrix,len(matrix),len(matrix[0]))
@@ -85,10 +85,10 @@ def main():
             matrix_alteracao = converte_matrix()
             start = retorna_coords_posicao(matrix,'P')
             startP = start[0]
-            tuploP = (int(startP[0]),int(startP[1]))
+            tuploP = (int(startP[0]),int(startP[1]), 0, 0)
             goal = retorna_coords_posicao(matrix,'F')
             goalF = goal[0]
-            tuploF = (int(goalF[0]),int(goalF[1]))
+            tuploF = (int(goalF[0]),int(goalF[1]), 0,0)
             problema = Pista(tuploP,tuploF,matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
             caminho = problema.solucaoDFS(str(tuploP), str(tuploF))
@@ -133,13 +133,13 @@ def main():
 
             start = retorna_coords_posicao(matrix,'P')
             startP = start[0]
-            tuploP = (int(startP[0]),int(startP[1]))
+            tuploP = (int(startP[0]),int(startP[1]), 0, 0)
             goal = retorna_coords_posicao(matrix,'F')
             goalF = goal[0]
-            tuploF = (int(goalF[0]),int(goalF[1]))
+            tuploF = (int(goalF[0]),int(goalF[1]),0,0)
             jogadorj= retorna_coords_posicao(matrix,'J')
             jogadorJ = jogadorj[0]
-            tuploJ = (int(jogadorJ[0]),int(jogadorJ[1]))
+            tuploJ = (int(jogadorJ[0]),int(jogadorJ[1]), 0, 0)
             print(tuploJ)
             problema = Pista(tuploP,tuploF,matrix,len(matrix),len(matrix[0]))
             problema.cria_grafo()
@@ -163,13 +163,10 @@ def main():
                 x = c[1:-1].split(',')
                 x1 = int(x[0])
                 x2 = int(x[1])
-                gx1 = x1
-                gx2 = x2
+               
                 w = r[1:-1].split(',')
                 w1 = int(w[0])
                 w2 = int(w[1])
-                gw1 = w1
-                gw2 = w2
                # matrix_alteracao[gx1][gx2] = '-'
                # matrix_alteracao[gw1][gw2] = '-'
                 matrix_alteracao[x1][x2] = 'P'
@@ -190,8 +187,8 @@ def main():
                     print(strr)
                     z += 1
                 time.sleep(0.5)
-                matrix_alteracao[gx1][gx2] = '-'
-                matrix_alteracao[gw1][gw2] = '-'
+                matrix_alteracao[x1][x2] = '-'
+                matrix_alteracao[w1][w2] = '-'
                 
             l=input("prima enter para continuar")
 

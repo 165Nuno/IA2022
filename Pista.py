@@ -26,8 +26,8 @@ class Pista():
         while estados != []:
             estado = estados.pop()
             expansao = self.expande(estado)
-            for e in expansao:
-                self.g.add_edge(str(estado),str(e),1)
+            for e in expansao:                               # Para cada caminho possivel a partir do tuplo "e"
+                self.g.add_edge(str(estado), str(e),1)        # add_edge(Tuplo, Caminho possivel, custo)
                 if e not in visitados: 
                     estados.append(e)
                     visitados.append(e)
@@ -35,24 +35,83 @@ class Pista():
 
 
 # Serve para obter numa lista, todos os estados possiveis a partir do estado atual que nos encontramos
-    def expande(self,estado):
-        lista = []
-        cordx = estado[0]
-        cordy = estado[1]
+    def expande(self, estado):
+        possibilidades = []
 
-        if cordx+1 < self.linha and self.matrix[cordx+1][cordy] != '#':
-            res = (cordx+1,cordy)
-            lista.append(res)
-        if cordx-1 > 0 and self.matrix[cordx-1][cordy] != '#' :
-            res = (cordx-1,cordy)
-            lista.append(res)
-        if  cordy+1 < self.coluna and self.matrix[cordx][cordy+1] != '#':
-            res = (cordx,cordy+1) 
-            lista.append(res)
-        if cordy-1>0 and self.matrix[cordx][cordy-1] != '#':
-            res = (cordx,cordy-1)
-            lista.append(res)
-        return lista
+        acels = [[0,0],[1,0],[0,1],[-1,0],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]
+        
+        for aceleratings in acels:
+
+            novo_nodo = self.check_acel(estado, aceleratings)
+            if novo_nodo is not None:
+                possibilidades.append(novo_nodo)
+        
+
+        return possibilidades
+        
+        
+        
+        
+    def check_acel(self, estado, acel):       
+        
+        velx = estado[2] + acel[0] 
+        vely = estado[3] + acel[1]
+        
+        # Forma de verificar se o nodo é valido ou não
+
+        novo = (estado[0] + velx, estado[1] + vely, velx, vely)# Novas posiçoes e novas velocidades [x,y, velocidadeX, velocidadeY]
+        
+        if novo[0] < self.linha and novo[0] > 0 and novo[1] < self.coluna and novo[1] > 0 and self.matrix[novo[0]][novo[1]] != '#':
+
+            if estado[0] > novo[0]:
+                xmax = estado[0]
+                xmin = novo[0]
+            else:
+                xmax = novo[0]
+                xmin = estado[0]
+
+            if estado[1] > novo[1]:
+                ymax = estado[1]
+                ymin = novo[1]
+            else:
+                ymax = novo[1]
+                ymin = estado[1]
+
+
+            for x in range(xmin, xmax+1):
+               for y in range(ymin, ymax+1):
+                   if self.matrix[x][y] == "#":
+                       return None
+
+    
+        else:
+            return None
+
+        return novo
+
+            
+
+
+        
+#        if cordx+vels[0] < self.linha and self.matrix[cordx+vels[0]][cordy] != '#':
+#            res = (cordx+vels[0],cordy)
+#            futuro_dict[res] = [vels[0]+1, 1]
+#
+#        if cordx-vels[0] > 0 and self.matrix[cordx-vels[0]][cordy] != '#' :
+#            res = (cordx-vels[0],cordy)
+#            futuro_dict[res] = [vels[0]+1, 1]
+#
+#        if cordy+vels[1] < self.coluna and self.matrix[cordx][cordy+vels[1]] != '#':
+#            res = (cordx,cordy+vels[1]) 
+#            futuro_dict[res] = [1, vels[1]+1]
+#
+#        if cordy-vels[1] > 0 and self.matrix[cordx][cordy-vels[1]] != '#':
+#            res = (cordx,cordy-vels[1])
+#            futuro_dict[res] = [1, vels[1]+1]
+#
+#        return futuro_dict
+
+
 
 
     # Aplica a Procura BFS
