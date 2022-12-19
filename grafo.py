@@ -11,7 +11,7 @@ class Graph:
         self.m_nodes = []
         self.m_directed = directed 
         self.m_graph = {}   
-        #self.m_h={}       
+        self.m_h={}       
 
 
     # Escrever o grafo como string
@@ -155,8 +155,140 @@ class Graph:
                     parents[adjacente].add(node)
         return None
         
+
+
+    def getNeighbours(self, nodo):
+        lista = []
+        for (adjacente, peso) in self.m_graph[nodo]:
+            lista.append((adjacente, peso))
+        return lista
         
 
+
+    #################### PESQUISA INFORMADA ---> [ASTAR & GREEDY]
+
+    # Função que define a heuristica para cada nodo
+
+    def add_heuristica(self, n, estima):
+        n1 = Node(n)
+        if n1 in self.m_nodes:
+            self.m_h[n] = estima
+
+
+
+    #######################################################################
+    #    heuristica   -> define heuristica para cada nodo 1 por defeito....
+    #    apenas para teste de pesquisa informada
+    #######################################################################
+
+    def heuristica(self):
+        nodos = self.m_graph.keys
+        for n in nodos:
+            self.m_h[n] = 1
+        return (True)
+
+
+    # Função que calcula o estima
+    def calcula_est(self, estima):
+        l = list(estima.keys())
+        min_estima = estima[l[0]]
+        node = l[0]
+        for k, v in estima.items():
+            if v < min_estima:
+                min_estima = v
+                node = k
+        return node
+
+    # Função que realiza a procura aStar
+    def procura_aStar(self, start, end):
+        # open_list is a list of nodes which have been visited, but who's neighbors
+        # haven't all been inspected, starts off with the start node
+        # closed_list is a list of nodes which have been visited
+        # and who's neighbors have been inspected
+        open_list = {start}
+        closed_list = set([])
+
+        # g contains current distances from start_node to all other nodes
+        # the default value (if it's not found in the map) is +infinity
+        g = {}  ##  g é apra substiruir pelo peso  ???
+
+        g[start] = 0
+
+        # parents contains an adjacency map of all nodes
+        pais = {}
+        pais[start] = start
+        n = None
+        while len(open_list) > 0:
+            # find a node with the lowest value of f() - evaluation function
+            calc_heurist = {}
+            flag = 0
+            for v in open_list:
+                if n == None:
+                    n = v
+                else:
+                    flag = 1
+                    calc_heurist[v] = g[v] + self.getH(v)
+            if flag == 1:
+                min_estima = self.calcula_est(calc_heurist)
+                n = min_estima
+            if n == None:
+                print('Path does not exist!')
+                return None
+
+            # if the current node is the stop_node
+            # then we begin reconstructin the path from it to the start_node
+            if n == end:
+                reconst_path = []
+
+                while pais[n] != n:
+                    reconst_path.append(n)
+                    n = pais[n]
+
+                reconst_path.append(start)
+
+                reconst_path.reverse()
+
+                #print('Path found: {}'.format(reconst_path))
+                return (reconst_path, self.calcula_custo(reconst_path))
+
+            # for all neighbors of the current node do
+            for (m, weight) in self.getNeighbours(n):  # definir função getneighbours  tem de ter um par nodo peso
+                # if the current node isn't in both open_list and closed_list
+                # add it to open_list and note n as it's parent
+                if m not in open_list and m not in closed_list:
+                    open_list.add(m)
+                    pais[m] = n
+                    g[m] = g[n] + weight
+
+                # otherwise, check if it's quicker to first visit n, then m
+                # and if it is, update parent data and g data
+                # and if the node was in the closed_list, move it to open_list
+                else:
+                    if g[m] > g[n] + weight:
+                        g[m] = g[n] + weight
+                        pais[m] = n
+
+                        if m in closed_list:
+                            closed_list.remove(m)
+                            open_list.add(m)
+
+            # remove n from the open_list, and add it to closed_list
+            # because all of his neighbors were inspected
+            open_list.remove(n)
+            closed_list.add(n)
+
+        print('O Caminho não existe')
+        return None
+
+    ###################################3
+    # devolve heuristica do nodo
+    ####################################
+
+    def getH(self, nodo):
+        if nodo not in self.m_h.keys():
+            return 1000
+        else:
+            return (self.m_h[nodo])
 
 
     

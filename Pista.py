@@ -120,5 +120,9 @@ class Pista():
 
     # Aplica a Procura DFS
     def solucaoDFS(self,start,goal):
-        res=self.g.procura_DFS(start,goal,path=[], visited=set())
+        res=self.g.procura_DFS(str(start),str(goal),path=[], visited=set())
         return (res)
+
+
+    def solucaoAstar(self,start,goal):
+        return self.g.procura_aStar(str(start),str(goal))
