@@ -159,6 +159,7 @@ class Graph:
 
     def getNeighbours(self, nodo):
         lista = []
+        print("cheguei ao neighbours")
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista
@@ -182,7 +183,7 @@ class Graph:
     #######################################################################
 
     def heuristica(self):
-        nodos = self.m_graph.keys
+        nodos = self.m_graph.keys()
         for n in nodos:
             self.m_h[n] = 1
         return (True)
@@ -338,8 +339,8 @@ class Graph:
                 # Se o nodo corrente nao esta na open nem na closed list
                 # adiciona-lo à open_list e marcar o antecessor
                 if m not in open_list and m not in closed_list:
-                    open_list.add(m)
-                    parents[m] = n
+                    open_list.add(str(m))
+                    parents[str(m)] = str(n)
 
             # remover n da open_list e adiciona-lo à closed_list
             # porque todos os seus vizinhos foram inspecionados
