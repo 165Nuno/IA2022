@@ -159,7 +159,6 @@ class Graph:
 
     def getNeighbours(self, nodo):
         lista = []
-        print("cheguei ao neighbours")
         for (adjacente, peso) in self.m_graph[nodo]:
             lista.append((adjacente, peso))
         return lista

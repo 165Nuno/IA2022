@@ -7,25 +7,25 @@ class Pista():
 
     def __init__(self, start, goal,matrix,linha,coluna):
         self.g=Graph(directed=True) # Grafo
-        self.start=start #Posição Start
-        self.goal=goal #Posição End
-        self.matrix = matrix #Matrix correspondente ao grafo
-        self.linha = linha #Número de linhas da matrix
-        self.coluna = coluna #Número de colunas da matrix
+        self.start=start # Posição Start
+        self.goal=goal # Posição End
+        self.matrix = matrix # Matrix correspondente ao grafo
+        self.linha = linha # Número de linhas da matrix
+        self.coluna = coluna # Número de colunas da matrix
 
     # Serve para criar o grafo à medida que passa por todos os nodos
     def cria_grafo(self):
-        estados = []
+        estados = [] # Lista dos nodos por expandir
         estados.append(self.start) # adicionado o estado inicial
         #self.g.m_nodes.append(Node(self.start[0],self.start[1]))
         #self.g.m_graph[self.start] = set()
-        visitados = []
-        visitados.append(self.start) # adicionamos o estado inicial ao estados visitados
+        visitados = [] # Lista que guarda todos os nodos visitados(expandidos)
+        visitados.append(self.start) # Adicionamos o estado inicial ao estados visitados
 
 
-        while estados != []:
-            estado = estados.pop()
-            expansao = self.expande(estado)
+        while estados != []:  # O ciclo executa enquanto houver nodos por expandir
+            estado = estados.pop() #Retira o último elemento da lista
+            expansao = self.expande(estado) # expansao é uma lista que guarda todos os estados possiveis a partir do estado fornecido na função expande
             for e in expansao:                               # Para cada caminho possivel a partir do tuplo "e"
                 self.g.add_edge(str(estado), str(e),1)        # add_edge(Tuplo, Caminho possivel, custo)
                 if e not in visitados: 

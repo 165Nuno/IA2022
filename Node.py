@@ -1,15 +1,9 @@
 
 # Classe nodo para definiçao dos nodos
-# cada nodo tem um nome e um id, poderia ter também informação sobre um ob jeto a guardar.....
 class Node:
-    def __init__(self,name):     #  construtor do nodo....."
-        self.m_name = name       # posição linha, velocidade x, velocidade y (tuplo de 4 elementos)
-        
-        # posicção coluna
-        #self.ac_linha; # acelaração linha
-        #self.ac_coluna; # acelaração coluna
-
-   
+    def __init__(self,name):     #  construtor do nodo"
+        self.m_name = name       # posição linha(x,y), velocidade x, velocidade y (tuplo de 4 elementos)
+ 
     def __str__(self):
         return "node" + self.m_name
 
@@ -23,7 +17,7 @@ class Node:
         return self.m_name
 
     def __eq__(self, other):
-        return self.m_name == other.m_name # são iguais se nome igual, não usa o id
+        return self.m_name == other.m_name # 2 nodos são iguais se a sua posição(x,y) e velocidades(vx,vy) forem iguais
 
     def __hash__(self):
         return hash(self.m_name)
