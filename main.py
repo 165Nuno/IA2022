@@ -69,6 +69,36 @@ def tracking(caminho1,caminho2,matrix):
                 matrix[x1][x2] = '-'
                 matrix[w1][w2] = '-'
 
+def prints(x, y, caminho, caminhoJ): 
+     
+     print(" ")
+ 
+     if (x == 1):
+         print_dfs()
+     elif(x == 2):
+         print_bfs()
+     elif(x == 3):
+         print_astar()
+     elif(x == 4):
+         print_greedy()
+ 
+     print("===> Caminho do Jogador P")
+     print(caminho)
+     print(" ")
+ 
+     if (y == 1):
+         print_dfs()
+     elif (y == 2):
+         print_bfs()
+     elif (y == 3):
+         print_astar()
+     elif (y == 4):
+         print_greedy()
+ 
+     print("===> Caminho do jogador J")
+     print(caminhoJ)
+     print(" ")
+
 
 # Função main
 def main():
@@ -79,10 +109,7 @@ def main():
         print("[2] - Gera Matriz correspondente ao Circuito escolhido")
         print("[3] - Mostrar Circuito Guardado")
         print("[4] - Cria Grafo")
-        print("[5] - Aplicar DFS")
-        print("[6] - Aplicar BFS")
-        print("[7] - Aplicar A-Star")
-        print("[8] - Aplicar Greedy")
+        print("[5] - Correr Algoritmos")
         print("[0] - Saír")
         var = int(input("introduza a sua opcao-> "))
         if var == 0:
@@ -118,6 +145,14 @@ def main():
             print(problemaJ.g)
             l=input("prima enter para continuar")
         elif var == 5:
+            print("[1] -> Algoritmo DFS")
+            print("[2] -> Algoritmo BFS")
+            print("[3] -> Algoritmo aStar")
+            print("[4] -> Algoritmo Greedy")
+            varP = int(input("Escolha um algoritmo para o jogador P -> "))
+            varJ = int(input("Escolha um algoritmo para o jogador J -> "))
+
+
             matrix = converte_matrix()
             matrix_alteracao = converte_matrix()
             start = retorna_coords_posicao(matrix,'P')
@@ -130,131 +165,40 @@ def main():
             problema.cria_grafo()
             problemaJ = Pista(tJ,tF,matrix,len(matrix),len(matrix[0]))
             problemaJ.cria_grafo()
-            caminho=problema.solucaoDFS(str(tP),str(tF))                                # Gera a solucao BFS para o jogador P
-            caminhoJ = problemaJ.solucaoDFS(str(tJ),str(tF)) 
 
-            #Prints
-            print(" ")
-            print_dfs()
-            print("===> Caminho do Jogador P")
-            print(caminho)
-            print(" ")
-            print("===> Caminho do jogador J")
-            print(caminhoJ)
-            print(" ")
+            if   (varP == 1):
+                caminho=problema.solucaoDFS(str(tP),str(tF))                                # Gera a solucao BFS para o jogador P
+
+            elif (varP == 2):
+                caminho=problema.solucaoBFS(str(tP),str(tF))
+            
+            elif (varP == 3):
+                caminho=problema.solucaoAstar(str(tP),str(tF))
+
+            elif (varP == 4):
+                caminho=problema.solucaoGreedy(str(tP),str(tF))
+
+
+            if   (varJ == 1):
+                caminhoJ=problemaJ.solucaoDFS(str(tJ),str(tF))                                # Gera a solucao BFS para o jogador P
+ 
+            elif (varJ == 2):
+                caminhoJ=problemaJ.solucaoBFS(str(tJ),str(tF))
+ 
+            elif (varJ == 3):
+                caminhoJ=problemaJ.solucaoAstar(str(tJ),str(tF))
+ 
+            elif (varJ == 4):
+                caminhoJ=problemaJ.solucaoGreedy(str(tJ),str(tF))
+
+            prints(varP, varJ, caminho, caminhoJ) 
             print("Tracking do caminho iniciando em breve....")
             time.sleep(4)
             tracking(caminho,caminhoJ,matrix_alteracao)
             l=input("prima enter para continuar")
-        elif var == 6:
-            matrix = converte_matrix()
-            matrix_alteracao = converte_matrix()
 
-
-            start = retorna_coords_posicao(matrix,'P')
-            goal = retorna_coords_posicao(matrix,'F')
-            jogadorj= retorna_coords_posicao(matrix,'J')
-            tP=gera_tuplo(start)
-            tF=gera_tuplo(goal)
-            tJ= gera_tuplo(jogadorj)
-            #print(tuploJ)
-            problema = Pista(tP,tF,matrix,len(matrix),len(matrix[0]))
-            problema.cria_grafo()
-            problemaJ = Pista(tJ,tF,matrix,len(matrix),len(matrix[0]))
-            problemaJ.cria_grafo()
-            caminho=problema.solucaoBFS(str(tP),str(tF))                                # Gera a solucao BFS para o jogador P
-            caminhoJ = problemaJ.solucaoBFS(str(tJ),str(tF))                            # Gera a solucao BFS para o jogador J
-
-            # Prints
-            print(" ")
-            print_bfs()
-            print("===> Caminho do Jogador P")
-            print(caminho)
-            print(" ")
-            print("===> Caminho do jogador J")
-            print(caminhoJ)
-            print(" ")
-            print("Tracking do caminho iniciando em breve....")
-            
-            # Sleep de 4 segundos antes de iniciar o Tracking
-            time.sleep(4)
-
-            # Inicialização do Tracking, em que mostra cada iteração
-            tracking(caminho,caminhoJ,matrix_alteracao)
-            l=input("prima enter para continuar")
-        elif var == 7:
-            matrix = converte_matrix()
-            matrix_alteracao = converte_matrix()
-
-
-            start = retorna_coords_posicao(matrix,'P')
-            goal = retorna_coords_posicao(matrix,'F')
-            jogadorj= retorna_coords_posicao(matrix,'J')
-            tP=gera_tuplo(start)
-            tF=gera_tuplo(goal)
-            tJ= gera_tuplo(jogadorj)
-            problema = Pista(tP,tF,matrix,len(matrix),len(matrix[0]))
-            problema.cria_grafo()
-            problemaJ = Pista(tJ,tF,matrix,len(matrix),len(matrix[0]))
-            problemaJ.cria_grafo()
-            caminho=problema.solucaoAstar(str(tP),str(tF))                                # Gera a solução aStar para o jogador P
-            caminhoJ = problemaJ.solucaoAstar(str(tJ),str(tF))                            # Gera a solução aStar para o jogador J
-            
-            #Prints
-            print(" ")
-            print_astar()
-            print("===> Caminho do Jogador P")
-            print(caminho)
-            print(" ")
-            print("===> Caminho do jogador J")
-            print(caminhoJ)
-            print(" ")
-            print("Tracking do caminho iniciando em breve....")
-            
-            # Sleep de 4 segundos
-            time.sleep(4)
-            
-            #Tracking
-            tracking(caminho,caminhoJ,matrix_alteracao)
-            l=input("prima enter para continuar")
-        elif var == 8:
-            matrix = converte_matrix()
-            matrix_alteracao = converte_matrix()
-
-
-            start = retorna_coords_posicao(matrix,'P')
-            goal = retorna_coords_posicao(matrix,'F')
-            jogadorj= retorna_coords_posicao(matrix,'J')
-            tP=gera_tuplo(start)
-            tF=gera_tuplo(goal)
-            tJ= gera_tuplo(jogadorj)
-            problema = Pista(tP,tF,matrix,len(matrix),len(matrix[0]))
-            problema.cria_grafo()
-            problemaJ = Pista(tJ,tF,matrix,len(matrix),len(matrix[0]))
-            problemaJ.cria_grafo()
-            caminho=problema.solucaoGreedy(str(tP),str(tF))                                # Gera a solução Greedy para o jogador P
-            caminhoJ = problemaJ.solucaoGreedy(str(tJ),str(tF))                            # Gera a solução Greedy para o jogador J
-            
-            #Prints
-            print(" ")
-            print_greedy()
-            print("===> Caminho do Jogador P")
-            print(caminho)
-            print(" ")
-            print("===> Caminho do jogador J")
-            print(caminhoJ)
-            print(" ")
-            print("Tracking do caminho iniciando em breve....")
-            
-            # Sleep de 4 segundos
-            time.sleep(4)
-            
-            #Tracking
-            tracking(caminho,caminhoJ,matrix_alteracao)
-            l=input("prima enter para continuar")
 
             
-    
 
 if __name__ == "__main__":
     main()
