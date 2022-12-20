@@ -3,23 +3,27 @@ from prints import *
 
 # Geração do Mapa Aleatório
 
+
+#Função que é responsável por gerar uma linha do labirinto usando aleatoriedade. Caso o numero gerado seja entre
+#1 e 19, gera uma parede, caso contrário, gera um caminho livre. É de notar que o primeiro e último elemento da
+#linha são sempre paredes.
+
 def randomNumb(largura):
-    string = ""
-    #random.seed() ?????
-    hm = largura
+    string = ""                                   # Inicializar a String
+    hm = largura                                  
     while(hm > 0):
-        if (hm == largura or hm == 1):
-            string += "#"
+        if (hm == largura or hm == 1):            # Caso seja a primeira ou ultimo nodo...
+            string += "#"                         # ... tem de gerar uma parede
             string += " "
-        elif ((random.randint(1,100)) < 20):
-            string += "#"
+        elif ((random.randint(1,100)) < 20):      # Caso o número gerado seja entre 1 e 19...
+            string += "#"                         # ... tem de gerar uma parede 
             string += " "
         else:
-            string += "-"
+            string += "-"                         # Para todos os outros casos gera um lugar vazio
             string += " "
         hm = hm - 1
-    print(string)
-    printar_file(string)
+    print(string)                                
+    printar_file(string)                          # print da linha para o ficheiro onde se guarda o mapa
 
 
 def meio(largura,altura):

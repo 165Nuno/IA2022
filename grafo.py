@@ -182,11 +182,18 @@ class Graph:
     #    apenas para teste de pesquisa informada
     #######################################################################
 
-    def heuristica(self):
+    def heuristica(self,goal):
         nodos = self.m_graph.keys()
+        g = goal[1:-1].split(',')
+        g1 = int(g[0])
+        g2 = int(g[1])
         for n in nodos:
-            self.m_h[n] = 1
+            x = n[1:-1].split(',')
+            x1 = int(x[0])
+            x2 = int(x[1])
+            self.m_h[n] = math.sqrt((g1-x1)**2+(g2-x2)**2)
         return (True)
+
 
 
     # Função que calcula o estima

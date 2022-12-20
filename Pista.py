@@ -125,10 +125,10 @@ class Pista():
 
     # Aplica a Procura aStar
     def solucaoAstar(self,start,goal):
-        self.g.heuristica()
+        self.g.heuristica(goal)
         return self.g.procura_aStar(str(start),str(goal))
 
     # Aplica a Procura Greedy
     def solucaoGreedy(self,start,goal):
-        self.g.heuristica()
+        self.g.heuristica(goal)
         return self.g.procura_greedy(str(start),str(goal))
