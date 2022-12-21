@@ -14,11 +14,11 @@ from Pista import *
 def main():
     os.system('clear')
     var = -1
-    menu()
     while var != 0:
+        menu()
         print("[1] - Gera Circuito")
         print("[2] - Gera Matriz correspondente ao Circuito escolhido")
-        print("1[3] - Mostrar Circuito Guardado")
+        print("[3] - Mostrar Circuito Guardado")
         print("[4] - Cria Grafo")
         print("[5] - Correr Algoritmos")
         print("[0] - Saír")
