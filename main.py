@@ -103,8 +103,9 @@ def main():
 
             printsAlgoritmos(varP, varJ, caminho, caminhoJ) 
             print("Tracking do caminho iniciando em breve....")
-            time.sleep(4)
+            time.sleep(5)
             tracking(caminho,caminhoJ,matrix_copia)
+
             print("O custo do Jogador P:"+ str(caminho[1]))
             print("O custo do Jogador J:"+ str(caminhoJ[1]))
             l=input("Prima enter para continuar")
@@ -178,9 +179,12 @@ def tracking(caminho1,caminho2,matrix):
         w1 = int(w[0])
         w2 = int(w[1])
         for i in range(i, len(l1)):
-            c = l1[i]
-            x1 = int(c[1])
-            x2 = int(c[4])
+            x = l1[i][1:-1].split(',')
+            x1 = int(x[0])
+            x2 = int(x[1])
+            """c = l1[i])
+            x1 = int(c[0])
+            x2 = int(c[1])"""
             matrix[x1][x2] = 'P'
             matrix[w1][w2] = 'J'
             z = 0
@@ -207,9 +211,9 @@ def tracking(caminho1,caminho2,matrix):
         x1 = int(x[0])
         x2 = int(x[1])
         for i in range(i, len(l2)):
-            r = l2[i]
-            w1 = int(r[1])
-            w2 = int(r[4])
+            r = l2[i][1:-1].split(',')
+            w1 = int(r[0])
+            w2 = int(r[1])
             matrix[x1][x2] = 'P'
             matrix[w1][w2] = 'J'
             z = 0

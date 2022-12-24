@@ -25,7 +25,7 @@ class Pista():
 
         while estados != []:  # O ciclo executa enquanto houver nodos por expandir
             estado = estados.pop() #Retira o último elemento da lista
-            expansao = self.expande(estado) # expansao é uma lista que guarda todos os estados possiveis a partir do estado fornecido na função expande
+            expansao = self.expande(estado) # expansao é uma lista que contém todos os estados possiveis a partir do estado atual que nos encontramos
             for e in expansao:                               # Para cada caminho possivel a partir do tuplo "e"
                 self.g.add_edge(str(estado), str(e),1)        # add_edge(Tuplo, Caminho possivel, custo)
                 if e not in visitados: 
@@ -89,28 +89,7 @@ class Pista():
 
         return novo
 
-            
-
-
-        
-#        if cordx+vels[0] < self.linha and self.matrix[cordx+vels[0]][cordy] != '#':
-#            res = (cordx+vels[0],cordy)
-#            futuro_dict[res] = [vels[0]+1, 1]
-#
-#        if cordx-vels[0] > 0 and self.matrix[cordx-vels[0]][cordy] != '#' :
-#            res = (cordx-vels[0],cordy)
-#            futuro_dict[res] = [vels[0]+1, 1]
-#
-#        if cordy+vels[1] < self.coluna and self.matrix[cordx][cordy+vels[1]] != '#':
-#            res = (cordx,cordy+vels[1]) 
-#            futuro_dict[res] = [1, vels[1]+1]
-#
-#        if cordy-vels[1] > 0 and self.matrix[cordx][cordy-vels[1]] != '#':
-#            res = (cordx,cordy-vels[1])
-#            futuro_dict[res] = [1, vels[1]+1]
-#
-#        return futuro_dict
-
+    
 
 
 
